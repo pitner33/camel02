@@ -10,13 +10,10 @@ public class Routes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("rest:POST:/hello")
-            .process(new Processor() {
-                @Override
-                public void process(Exchange exchange) throws Exception {
-                    String body = exchange.getIn().getBody(String.class).toUpperCase();
-                    exchange.getIn().setBody(body + "\n" + body);
-                }
+            .process(exchange -> {
+                String body = exchange.getIn().getBody(String.class).toUpperCase();
+                exchange.getIn().setBody(body + "\n" + body);
             })
-            .to("file:/home/sol/workspace/dummies/files/out?fileName=macska.txt");
+            .to("file:/home/sol/workspace/dummies/190605_restToFile_camel/fileOut?fileName=macska.txt");
     }
 }
