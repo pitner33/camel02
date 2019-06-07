@@ -15,5 +15,9 @@ public class Routes extends RouteBuilder {
                 exchange.getIn().setBody(body + "\n" + body);
             })
             .to("file:/home/sol/workspace/dummies/190605_restToFile_camel/fileOut?fileName=macska.txt");
+
+        from("rest:Post:/greetings")
+                .process(new GreetingProcessor())
+                .to("file:/home/sol/workspace/dummies/190605_restToFile_camel/fileOut?fileName=greeter.txt");
     }
 }
